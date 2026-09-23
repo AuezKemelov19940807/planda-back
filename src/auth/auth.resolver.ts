@@ -33,8 +33,9 @@ export class AuthResolver {
 
     context.res.cookie('access_token', result.access_token, {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
+      sameSite: 'none',
+      secure: true,
+      path: '/',
     });
 
     return result;
