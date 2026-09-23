@@ -9,7 +9,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000',
       'http://localhost:3001',
-      'https://planda-seven.vercel.app',
+      'https://planda-front.vercel.app',
     ],
     credentials: true,
   });
