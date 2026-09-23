@@ -51,6 +51,13 @@ export class UsersResolver {
       return null;
     }
 
+    if (
+      user.avatar.startsWith('http://') ||
+      user.avatar.startsWith('https://')
+    ) {
+      return user.avatar;
+    }
+
     return `${process.env.API_URL}/api/files/${user.avatar}`;
   }
 }
