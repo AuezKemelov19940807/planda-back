@@ -27,35 +27,13 @@ export class AuthResolver {
   async signIn(
     @Args('email') email: string,
     @Args('password') password: string,
-    @Context() context: GraphQLContext,
   ) {
-    const result = await this.service.signIn(email, password);
-
-    context.res.cookie('access_token', result.access_token, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      path: '/',
-    });
-
-    return result;
+    return this.service.signIn(email, password);
   }
 
   @Mutation(() => UserType)
-  async googleSignIn(
-    @Args('credential') credential: string,
-    @Context() context: GraphQLContext,
-  ) {
-    const result = await this.service.googleSignIn(credential);
-
-    context.res.cookie('access_token', result.access_token, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      path: '/',
-    });
-
-    return result;
+  async googleSignIn(@Args('credential') credential: string) {
+    return this.service.googleSignIn(credential);
   }
 
   @Mutation(() => MessageType)
@@ -78,8 +56,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  logOut(@Context() context: GraphQLContext) {
-    context.res.clearCookie('access_token');
-    return true;
+  logOut() {
+    return this.service.logOut();
   }
 }
