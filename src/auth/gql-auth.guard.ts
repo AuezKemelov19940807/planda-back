@@ -16,8 +16,8 @@ export class GqlAuthGuard implements CanActivate {
 
     const request = gqlContext.getContext<{
       req: {
-        cookies?: {
-          access_token?: string;
+        headers: {
+          authorization?: string;
         };
         user?: {
           sub: string;
@@ -26,17 +26,22 @@ export class GqlAuthGuard implements CanActivate {
       };
     }>().req;
 
-    const token = request.cookies?.access_token;
+    const authHeader = request.headers.authorization;
 
-    if (!token) {
+    if (!authHeader) {
+      throw new UnauthorizedException();
+    }
+
+    const [type, token] = authHeader.split(' ');
+
+    if (type !== 'Bearer' || !token) {
       throw new UnauthorizedException();
     }
 
     try {
       const payload = await this.jwtService.verifyAsync(token);
-
       request.user = payload;
-    } catch {
+    } catch (error) {
       throw new UnauthorizedException();
     }
 
