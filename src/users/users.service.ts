@@ -100,12 +100,63 @@ export class UsersService {
   }
 
   async updatePassword(id: string, password: string) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     return prisma.user.update({
       where: { id },
       data: {
-        password,
+        password: hashedPassword,
         resetPasswordTokenHash: null,
         resetPasswordExpiresAt: null,
+      },
+    });
+  }
+
+  async changePassword(
+    id: string,
+    currentPassword: string,
+    newPassword: string,
+  ) {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new GraphQLError('User not found', {
+        extensions: {
+          code: 'NOT_FOUND',
+        },
+      });
+    }
+
+    // Google-пользователь может не иметь пароля
+    if (!user.password) {
+      throw new GraphQLError('Password is not set for this account', {
+        extensions: {
+          code: 'BAD_USER_INPUT',
+        },
+      });
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new GraphQLError('Current password is incorrect', {
+        extensions: {
+          code: 'BAD_USER_INPUT',
+        },
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    return prisma.user.update({
+      where: { id },
+      data: {
+        password: hashedPassword,
       },
     });
   }

@@ -5,11 +5,15 @@ import {
   Args,
   ResolveField,
   Parent,
+  Context,
 } from '@nestjs/graphql';
 import { UsersService } from './users.service.js';
 import { UserType } from './type/user.type.js';
 import { UpdateUserDto } from './dto/update.user.dto.js';
-
+import { GqlAuthGuard } from '../auth/gql-auth.guard.js';
+import type { GraphQLContext } from '../auth/type/graphql-context.js';
+import { UseGuards } from '@nestjs/common';
+import { ChangePasswordDto } from './dto/change-password.dto.js';
 @Resolver(() => UserType)
 export class UsersResolver {
   constructor(private readonly service: UsersService) {}
@@ -43,6 +47,19 @@ export class UsersResolver {
   @Mutation(() => UserType)
   async removeUser(@Args('id') id: string) {
     return this.service.remove(id);
+  }
+
+  @Mutation(() => UserType)
+  @UseGuards(GqlAuthGuard)
+  async changePassword(
+    @Args('payload') payload: ChangePasswordDto,
+    @Context() context: GraphQLContext,
+  ) {
+    return this.service.changePassword(
+      context.req.user!.sub,
+      payload.currentPassword,
+      payload.newPassword,
+    );
   }
 
   @ResolveField(() => String, { nullable: true })
