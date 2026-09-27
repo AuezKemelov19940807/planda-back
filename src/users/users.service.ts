@@ -137,15 +137,6 @@ export class UsersService {
         },
       });
     }
-    console.log('CHANGE PASSWORD:', {
-      id,
-      hasCurrentPassword: !!currentPassword,
-      hasNewPassword: !!newPassword,
-      currentPasswordType: typeof currentPassword,
-      newPasswordType: typeof newPassword,
-      hasUserPassword: !!user.password,
-      userPasswordType: typeof user.password,
-    });
 
     const isPasswordValid = await bcrypt.compare(
       currentPassword,
