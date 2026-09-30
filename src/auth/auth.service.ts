@@ -68,6 +68,10 @@ export class AuthService {
       );
     }
 
+    if (user.googleId && !user.password) {
+      throw new BadRequestException('This account uses Google sign-in');
+    }
+
     const code = crypto.randomInt(100000, 1000000).toString();
 
     const codeHash = await bcrypt.hash(code, 10);
@@ -109,6 +113,10 @@ export class AuthService {
       throw new BadRequestException('Invalid or expired code');
     }
 
+    if (user.googleId && !user.password) {
+      throw new BadRequestException('This account uses Google sign-in');
+    }
+
     if (user.resetPasswordExpiresAt < new Date()) {
       throw new BadRequestException('Invalid or expired code');
     }
@@ -119,9 +127,7 @@ export class AuthService {
       throw new BadRequestException('Invalid or expired code');
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-    await this.usersService.updatePassword(user.id, hashedPassword);
+    await this.usersService.updatePassword(user.id, newPassword);
 
     return {
       message: 'Password successfully changed',
