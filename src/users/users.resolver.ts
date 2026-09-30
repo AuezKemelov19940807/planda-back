@@ -12,7 +12,7 @@ import { UserType } from './type/user.type.js';
 import { UpdateUserDto } from './dto/update.user.dto.js';
 import { GqlAuthGuard } from '../auth/gql-auth.guard.js';
 import type { GraphQLContext } from '../auth/type/graphql-context.js';
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import { ChangePasswordDto } from './dto/change-password.dto.js';
 @Resolver(() => UserType)
 export class UsersResolver {
@@ -36,7 +36,19 @@ export class UsersResolver {
 
   @Query(() => UserType, { nullable: true })
   async getUser(@Args('email') email: string) {
-    return this.service.findOne(email);
+    const user = await this.service.findOne(email);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      avatar: user.avatar,
+      hasPassword: Boolean(user.password),
+    };
   }
 
   @Mutation(() => UserType)
