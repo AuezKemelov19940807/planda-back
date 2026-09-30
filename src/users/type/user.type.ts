@@ -19,4 +19,7 @@ export class UserType {
 
   @Field()
   access_token: string;
+
+  @Field(() => Boolean)
+  hasPassword: boolean;
 }

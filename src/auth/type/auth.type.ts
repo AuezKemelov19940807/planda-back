@@ -22,4 +22,7 @@ export class AuthType {
 
   @Field()
   access_token: string;
+
+  @Field(() => Boolean)
+  hasPassword: boolean;
 }

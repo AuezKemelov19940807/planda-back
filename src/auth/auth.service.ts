@@ -50,7 +50,11 @@ export class AuthService {
     const access_token = await this.jwtService.signAsync(payload);
 
     return {
-      ...user,
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      avatar: user.avatar,
+      hasPassword: Boolean(user.password),
       access_token,
     };
   }
@@ -135,7 +139,13 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
 
-    return user;
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      avatar: user.avatar,
+      hasPassword: Boolean(user.password),
+    };
   }
 
   async googleSignIn(credential: string): Promise<AuthType> {
@@ -149,7 +159,11 @@ export class AuthService {
     const access_token = await this.jwtService.signAsync(payload);
 
     return {
-      ...user,
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      avatar: user.avatar,
+      hasPassword: Boolean(user.password),
       access_token,
     };
   }
