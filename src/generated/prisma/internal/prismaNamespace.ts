@@ -683,8 +683,10 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const FinanceSpaceScalarFieldEnum = {
   id: 'id',
   financeId: 'financeId',
+  name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isDefault: 'isDefault'
 } as const
 
 export type FinanceSpaceScalarFieldEnum = (typeof FinanceSpaceScalarFieldEnum)[keyof typeof FinanceSpaceScalarFieldEnum]
@@ -771,6 +773,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

@@ -75,8 +75,10 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const FinanceSpaceScalarFieldEnum = {
   id: 'id',
   financeId: 'financeId',
+  name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isDefault: 'isDefault'
 } as const
 
 export type FinanceSpaceScalarFieldEnum = (typeof FinanceSpaceScalarFieldEnum)[keyof typeof FinanceSpaceScalarFieldEnum]

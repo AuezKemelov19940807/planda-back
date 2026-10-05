@@ -1,9 +1,12 @@
 model FinanceSpace {
     id        String   @id @default(uuid())
     financeId String
+    name      String
     finance   Finance  @relation(fields: [financeId], references: [id], onDelete: Cascade)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    isDefault Boolean  @default(false)
 
+    @@unique([financeId, name])
     @@index([financeId])
 }

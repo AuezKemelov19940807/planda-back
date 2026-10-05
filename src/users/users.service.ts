@@ -16,6 +16,23 @@ export class UsersService {
         data: {
           ...dto,
           password: hashedPassword,
+          finance: {
+            create: {
+              spaces: {
+                create: {
+                  name: 'Personal',
+                  isDefault: true,
+                },
+              },
+            },
+          },
+        },
+        include: {
+          finance: {
+            include: {
+              spaces: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -182,6 +199,24 @@ export class UsersService {
         name: data.name,
         avatar: data.avatar,
         googleId: data.googleId,
+        finance: {
+          create: {
+            spaces: {
+              create: {
+                name: 'Personal',
+                isDefault: true,
+              },
+            },
+          },
+        },
+      },
+
+      include: {
+        finance: {
+          include: {
+            spaces: true,
+          },
+        },
       },
     });
   }
