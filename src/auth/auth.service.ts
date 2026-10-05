@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -80,7 +81,15 @@ export class AuthService {
 
     await this.usersService.savePasswordResetCode(user.id, codeHash, expiresAt);
 
-    await this.mailService.sendPasswordResetCode(user.email, code);
+    try {
+      await this.mailService.sendPasswordResetCode(user.email, code);
+    } catch (error) {
+      console.error('❌ SEND PASSWORD RESET EMAIL ERROR:', error);
+
+      throw new InternalServerErrorException(
+        'Failed to send password reset email',
+      );
+    }
 
     return {
       message: 'If this email exists, a reset code has been sent',

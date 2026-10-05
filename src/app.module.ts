@@ -8,6 +8,12 @@ import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { FilesModule } from './files/files.module.js';
 import { MailModule } from './mail/mail.module.js';
+import { FinanceService } from './finance/finance.service.js';
+
+import { FinanceModule } from './finance/finance.module.js';
+import { FinanceSpaceService } from './finance-space/finance-space.service.js';
+import { FinanceSpaceResolver } from './finance-space/finance-space.resolver.js';
+import { FinanceSpaceModule } from './finance-space/finance-space.module.js';
 
 @Module({
   imports: [
@@ -27,8 +33,10 @@ import { MailModule } from './mail/mail.module.js';
     AuthModule,
     FilesModule,
     MailModule,
+    FinanceModule,
+    FinanceSpaceModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService],
+  providers: [AppService, UsersService, FinanceService, FinanceSpaceService, FinanceSpaceResolver],
 })
 export class AppModule {}

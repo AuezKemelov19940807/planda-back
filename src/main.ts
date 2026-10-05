@@ -14,7 +14,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const port = Number(process.env.PORT) || 3000;
+  const port = Number(process.env.PORT) || 3001;
 
   app.useGlobalPipes(
     new ValidationPipe({

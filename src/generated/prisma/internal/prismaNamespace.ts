@@ -397,6 +397,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  FinanceSpace: 'FinanceSpace',
+  Finance: 'Finance',
   User: 'User'
 } as const
 
@@ -413,10 +415,158 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "financeSpace" | "finance" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    FinanceSpace: {
+      payload: Prisma.$FinanceSpacePayload<ExtArgs>
+      fields: Prisma.FinanceSpaceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceSpaceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceSpaceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceSpaceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceSpaceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>
+        }
+        findMany: {
+          args: Prisma.FinanceSpaceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>[]
+        }
+        create: {
+          args: Prisma.FinanceSpaceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>
+        }
+        createMany: {
+          args: Prisma.FinanceSpaceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceSpaceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceSpaceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>
+        }
+        update: {
+          args: Prisma.FinanceSpaceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceSpaceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceSpaceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceSpaceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceSpaceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceSpacePayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceSpaceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceSpace>
+        }
+        groupBy: {
+          args: Prisma.FinanceSpaceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceSpaceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceSpaceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceSpaceCountAggregateOutputType> | number
+        }
+      }
+    }
+    Finance: {
+      payload: Prisma.$FinancePayload<ExtArgs>
+      fields: Prisma.FinanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>
+        }
+        findMany: {
+          args: Prisma.FinanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>[]
+        }
+        create: {
+          args: Prisma.FinanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>
+        }
+        createMany: {
+          args: Prisma.FinanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>
+        }
+        update: {
+          args: Prisma.FinanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinancePayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinance>
+        }
+        groupBy: {
+          args: Prisma.FinanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -528,6 +678,26 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const FinanceSpaceScalarFieldEnum = {
+  id: 'id',
+  financeId: 'financeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinanceSpaceScalarFieldEnum = (typeof FinanceSpaceScalarFieldEnum)[keyof typeof FinanceSpaceScalarFieldEnum]
+
+
+export const FinanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinanceScalarFieldEnum = (typeof FinanceScalarFieldEnum)[keyof typeof FinanceScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -768,6 +938,8 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
  */
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
+  financeSpace?: Prisma.FinanceSpaceOmit
+  finance?: Prisma.FinanceOmit
   user?: Prisma.UserOmit
 }
 
