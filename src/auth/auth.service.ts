@@ -32,7 +32,28 @@ export class AuthService {
   async signIn(email: string, password: string): Promise<AuthType> {
     const user = await this.usersService.findOne(email);
 
-    if (!user || !user.password) {
+    if (!user) {
+      throw new GraphQLError('Invalid email or password', {
+        extensions: {
+          code: 'UNAUTHORIZED',
+        },
+      });
+    }
+
+    // Пользователь существует, но у него нет пароля
+    // и аккаунт зарегистрирован через Google
+    if (!user.password && user.googleId) {
+      throw new GraphQLError(
+        'This account uses Google sign-in. Please continue with Google.',
+        {
+          extensions: {
+            code: 'BAD_REQUEST',
+          },
+        },
+      );
+    }
+
+    if (!user.password) {
       throw new GraphQLError('Invalid email or password', {
         extensions: {
           code: 'UNAUTHORIZED',
@@ -46,7 +67,10 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const payload = { sub: user.id, username: user.email };
+    const payload = {
+      sub: user.id,
+      username: user.email,
+    };
 
     const access_token = await this.jwtService.signAsync(payload);
 
@@ -56,6 +80,7 @@ export class AuthService {
       name: user.name,
       avatar: user.avatar,
       hasPassword: Boolean(user.password),
+      isGoogleAccount: Boolean(user.googleId),
       access_token,
     };
   }
@@ -160,6 +185,7 @@ export class AuthService {
       name: user.name,
       avatar: user.avatar,
       hasPassword: Boolean(user.password),
+      isGoogleAccount: Boolean(user.googleId),
     };
   }
 
@@ -179,6 +205,7 @@ export class AuthService {
       name: user.name,
       avatar: user.avatar,
       hasPassword: Boolean(user.password),
+      isGoogleAccount: Boolean(user.googleId),
       access_token,
     };
   }

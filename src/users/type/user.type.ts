@@ -22,4 +22,7 @@ export class UserType {
 
   @Field(() => Boolean)
   hasPassword: boolean;
+
+  @Field(() => Boolean)
+  isGoogleAccount: boolean;
 }

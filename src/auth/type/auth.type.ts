@@ -25,4 +25,7 @@ export class AuthType {
 
   @Field(() => Boolean)
   hasPassword: boolean;
+
+  @Field(() => Boolean)
+  isGoogleAccount: boolean;
 }
