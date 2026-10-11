@@ -10,5 +10,6 @@
  */
 export type * from './models/FinanceSpace.js'
 export type * from './models/Finance.js'
+export type * from './models/Transaction.js'
 export type * from './models/User.js'
 export type * from './commonInputTypes.js'

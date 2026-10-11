@@ -441,10 +441,6 @@ export type UserUpdateOneRequiredWithoutFinanceNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFinanceInput, Prisma.UserUpdateWithoutFinanceInput>, Prisma.UserUncheckedUpdateWithoutFinanceInput>
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }

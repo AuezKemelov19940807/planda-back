@@ -1,0 +1,23 @@
+enum TransactionType {
+    INCOME
+    EXPENSE
+}
+
+model Transaction {
+    id             String          @id @default(uuid())
+    financeSpaceId String
+    type           TransactionType
+
+    amount   Decimal  @db.Decimal(15, 2)
+    category String
+    comment  String?
+    date     DateTime @default(now())
+
+    financeSpace FinanceSpace @relation(fields: [financeSpaceId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([financeSpaceId, date])
+    @@index([financeSpaceId, type])
+}

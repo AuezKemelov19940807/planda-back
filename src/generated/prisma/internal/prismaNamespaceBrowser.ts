@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   FinanceSpace: 'FinanceSpace',
   Finance: 'Finance',
+  Transaction: 'Transaction',
   User: 'User'
 } as const
 
@@ -92,6 +93,21 @@ export const FinanceScalarFieldEnum = {
 } as const
 
 export type FinanceScalarFieldEnum = (typeof FinanceScalarFieldEnum)[keyof typeof FinanceScalarFieldEnum]
+
+
+export const TransactionScalarFieldEnum = {
+  id: 'id',
+  financeSpaceId: 'financeSpaceId',
+  type: 'type',
+  amount: 'amount',
+  category: 'category',
+  comment: 'comment',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

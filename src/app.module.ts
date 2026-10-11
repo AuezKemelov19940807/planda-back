@@ -14,6 +14,7 @@ import { FinanceModule } from './finance/finance.module.js';
 import { FinanceSpaceService } from './finance-space/finance-space.service.js';
 import { FinanceSpaceResolver } from './finance-space/finance-space.resolver.js';
 import { FinanceSpaceModule } from './finance-space/finance-space.module.js';
+import { TransactionModule } from './transaction/transaction.module.js';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { FinanceSpaceModule } from './finance-space/finance-space.module.js';
     MailModule,
     FinanceModule,
     FinanceSpaceModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService, UsersService, FinanceService, FinanceSpaceService, FinanceSpaceResolver],

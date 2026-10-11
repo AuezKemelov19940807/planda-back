@@ -52,6 +52,11 @@ export type FinanceSpace = Prisma.FinanceSpaceModel
  */
 export type Finance = Prisma.FinanceModel
 /**
+ * Model Transaction
+ * 
+ */
+export type Transaction = Prisma.TransactionModel
+/**
  * Model User
  * 
  */
