@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { prisma } from '../lib/prisma.js';
 import { GraphQLError } from 'graphql';
 import { CreateTransactionDto } from './dto/create.transaction.dto.js';
+import { UpdateTransactionDto } from './dto/update.transaction.dto.js';
 
 @Injectable()
 export class TransactionService {
@@ -34,6 +35,31 @@ export class TransactionService {
         },
       });
     }
+    if (!category.trim()) {
+      throw new GraphQLError('Category is required', {
+        extensions: { code: 'BAD_USER_INPUT' },
+      });
+    }
+  }
+
+  private normalizeUpdateInput(input: UpdateTransactionDto) {
+    const category = input?.category?.trim();
+
+    if (input.category !== undefined && !category) {
+      throw new GraphQLError('Category is required', {
+        extensions: {
+          code: 'BAD_USER_INPUT',
+        },
+      });
+    }
+
+    return {
+      ...input,
+      ...(input.category !== undefined && { category }),
+      ...(input.comment !== undefined && {
+        comment: input.comment?.trim() || null,
+      }),
+    };
   }
 
   async get(userId: string, financeSpaceId: string) {
@@ -85,7 +111,33 @@ export class TransactionService {
     });
   }
 
-  async update() {}
+  async update(userId: string, id: string, input: UpdateTransactionDto) {
+    const transaction = await prisma.transaction.findFirst({
+      where: {
+        id,
+        financeSpace: {
+          finance: {
+            userId,
+          },
+        },
+      },
+    });
+
+    if (!transaction) {
+      throw new GraphQLError('Transaction Not Found', {
+        extensions: {
+          code: 'NOT_FOUND',
+        },
+      });
+    }
+
+    return prisma.transaction.update({
+      where: {
+        id,
+      },
+      data: this.normalizeUpdateInput(input),
+    });
+  }
 
   async delete() {}
 }
