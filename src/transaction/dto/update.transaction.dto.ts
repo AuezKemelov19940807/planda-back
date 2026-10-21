@@ -1,4 +1,4 @@
-import { Field, Float, InputType } from '@nestjs/graphql';
+import { Field, Float, ID, InputType } from '@nestjs/graphql';
 import {
   IsDate,
   IsEnum,
@@ -6,6 +6,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
   Min,
 } from 'class-validator';
 import { TransactionType } from '../../generated/prisma/enums.js';
@@ -26,11 +27,10 @@ export class UpdateTransactionDto {
   @Min(0.01)
   amount?: number;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  category?: string;
+  @IsUUID()
+  categoryId?: string;
 
   @Field(() => String, { nullable: true })
   @IsOptional()

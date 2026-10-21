@@ -15,6 +15,9 @@ import { FinanceSpaceService } from './finance-space/finance-space.service.js';
 import { FinanceSpaceResolver } from './finance-space/finance-space.resolver.js';
 import { FinanceSpaceModule } from './finance-space/finance-space.module.js';
 import { TransactionModule } from './transaction/transaction.module.js';
+import { CategoryService } from './category/category.service.js';
+import { CategoryResolver } from './category/category.resolver.js';
+import { CategoryModule } from './category/category.module.js';
 
 @Module({
   imports: [
@@ -37,8 +40,9 @@ import { TransactionModule } from './transaction/transaction.module.js';
     FinanceModule,
     FinanceSpaceModule,
     TransactionModule,
+    CategoryModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService, FinanceService, FinanceSpaceService, FinanceSpaceResolver],
+  providers: [AppService, UsersService, FinanceService, FinanceSpaceService, FinanceSpaceResolver, CategoryService, CategoryResolver],
 })
 export class AppModule {}

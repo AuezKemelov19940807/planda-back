@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Category.js'
 export type * from './models/FinanceSpace.js'
 export type * from './models/Finance.js'
 export type * from './models/Transaction.js'

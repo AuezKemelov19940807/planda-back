@@ -1,23 +1,26 @@
 enum TransactionType {
-    INCOME
-    EXPENSE
+  INCOME
+  EXPENSE
 }
 
 model Transaction {
-    id             String          @id @default(uuid())
-    financeSpaceId String
-    type           TransactionType
+  id             String          @id @default(uuid())
+  financeSpaceId String
+  type           TransactionType
 
-    amount   Decimal  @db.Decimal(15, 2)
-    category String
-    comment  String?
-    date     DateTime @default(now())
+  amount Decimal @db.Decimal(15, 2)
 
-    financeSpace FinanceSpace @relation(fields: [financeSpaceId], references: [id], onDelete: Cascade)
+  categoryId  String
+  categoryRef Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  comment     String?
+  date        DateTime @default(now())
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  financeSpace FinanceSpace @relation(fields: [financeSpaceId], references: [id], onDelete: Cascade)
 
-    @@index([financeSpaceId, date])
-    @@index([financeSpaceId, type])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([financeSpaceId, date])
+  @@index([financeSpaceId, type])
+  @@index([categoryId])
 }

@@ -1,15 +1,15 @@
 model FinanceSpace {
-    id        String  @id @default(uuid())
-    financeId String
-    name      String
-    finance   Finance @relation(fields: [financeId], references: [id], onDelete: Cascade)
+  id           String        @id @default(uuid())
+  financeId    String
+  name         String
+  finance      Finance       @relation(fields: [financeId], references: [id], onDelete: Cascade)
+  categories   Category[]
+  transactions Transaction[]
 
-    transactions Transaction[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDefault Boolean  @default(false)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    isDefault Boolean  @default(false)
-
-    @@unique([financeId, name])
-    @@index([financeId])
+  @@unique([financeId, name])
+  @@index([financeId])
 }

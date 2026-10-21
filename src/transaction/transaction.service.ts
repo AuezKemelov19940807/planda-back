@@ -3,6 +3,7 @@ import { prisma } from '../lib/prisma.js';
 import { GraphQLError } from 'graphql';
 import { CreateTransactionDto } from './dto/create.transaction.dto.js';
 import { UpdateTransactionDto } from './dto/update.transaction.dto.js';
+import { TransactionType } from '../generated/prisma/enums.js';
 
 @Injectable()
 export class TransactionService {
@@ -27,7 +28,40 @@ export class TransactionService {
     return financeSpace;
   }
 
-  private validateTransaction(amout: number, category: string) {
+  private async findOwnCategory(
+    userId: string,
+    financeSpaceId: string,
+    categoryId: string,
+    type: TransactionType,
+  ) {
+    const category = await prisma.category.findFirst({
+      where: {
+        id: categoryId,
+        financeSpaceId,
+        type,
+        financeSpace: {
+          finance: {
+            userId,
+          },
+        },
+      },
+    });
+
+    if (!category) {
+      throw new GraphQLError(
+        'Category not found or does not match transaction type',
+        {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+          },
+        },
+      );
+    }
+
+    return category;
+  }
+
+  private validateTransaction(amout: number) {
     if (!Number.isFinite(amout) || amout <= 0) {
       throw new GraphQLError('Amount must be greter than zero', {
         extensions: {
@@ -35,27 +69,11 @@ export class TransactionService {
         },
       });
     }
-    if (!category.trim()) {
-      throw new GraphQLError('Category is required', {
-        extensions: { code: 'BAD_USER_INPUT' },
-      });
-    }
   }
 
   private normalizeUpdateInput(input: UpdateTransactionDto) {
-    const category = input?.category?.trim();
-
-    if (input.category !== undefined && !category) {
-      throw new GraphQLError('Category is required', {
-        extensions: {
-          code: 'BAD_USER_INPUT',
-        },
-      });
-    }
-
     return {
       ...input,
-      ...(input.category !== undefined && { category }),
       ...(input.comment !== undefined && {
         comment: input.comment?.trim() || null,
       }),
@@ -91,11 +109,13 @@ export class TransactionService {
   }
 
   async create(userId: string, input: CreateTransactionDto) {
-    const { financeSpaceId, type, amount, category, comment, date } = input;
+    const { financeSpaceId, type, amount, categoryId, comment, date } = input;
 
     await this.findOwnSpace(userId, financeSpaceId);
 
-    this.validateTransaction(amount, category);
+    await this.findOwnCategory(userId, financeSpaceId, categoryId, type);
+
+    this.validateTransaction(amount);
 
     const commentTrim = comment?.trim() || null;
 
@@ -104,7 +124,7 @@ export class TransactionService {
         financeSpaceId,
         type,
         amount,
-        category,
+        categoryId,
         comment: commentTrim,
         ...(date && { date }),
       },
@@ -129,6 +149,23 @@ export class TransactionService {
           code: 'NOT_FOUND',
         },
       });
+    }
+
+    const nextType = input.type ?? transaction.type;
+
+    const nextCategoryId = input.categoryId ?? transaction.categoryId;
+
+    if (input.amount !== undefined) {
+      this.validateTransaction(input.amount);
+    }
+
+    if (input.categoryId !== undefined || input.type !== undefined) {
+      await this.findOwnCategory(
+        userId,
+        transaction.financeSpaceId,
+        nextCategoryId,
+        nextType,
+      );
     }
 
     return prisma.transaction.update({

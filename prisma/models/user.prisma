@@ -1,17 +1,17 @@
 model User {
-    id       String  @id @default(uuid())
-    email    String  @unique
-    password String?
-    name     String?
-    avatar   String?
+  id       String  @id @default(uuid())
+  email    String  @unique
+  password String?
+  name     String?
+  avatar   String?
 
-    googleId String? @unique
+  googleId String? @unique
 
-    resetPasswordTokenHash String?
-    resetPasswordExpiresAt DateTime?
+  resetPasswordTokenHash String?
+  resetPasswordExpiresAt DateTime?
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    finance Finance?
+  finance Finance?
 }

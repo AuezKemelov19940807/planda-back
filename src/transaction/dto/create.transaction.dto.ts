@@ -1,4 +1,4 @@
-import { Field, Float, InputType } from '@nestjs/graphql';
+import { Field, Float, ID, InputType } from '@nestjs/graphql';
 import {
   IsDate,
   IsEnum,
@@ -30,10 +30,9 @@ export class CreateTransactionDto {
   @Min(0.01)
   amount!: number;
 
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  category!: string;
+  @Field(() => ID)
+  @IsUUID()
+  categoryId!: string;
 
   @Field(() => String, { nullable: true })
   @IsOptional()

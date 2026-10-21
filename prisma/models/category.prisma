@@ -1,0 +1,13 @@
+model Category {
+  id             String          @id @default(uuid())
+  financeSpaceId String
+  name           String
+  type           TransactionType
+  financeSpace   FinanceSpace    @relation(fields: [financeSpaceId], references: [id], onDelete: Cascade)
+  transactions   Transaction[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@unique([financeSpaceId, name, type])
+  @@index([financeSpaceId])
+}
