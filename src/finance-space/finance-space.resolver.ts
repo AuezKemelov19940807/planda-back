@@ -1,5 +1,4 @@
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-
 import { FinanceSpaceService } from './finance-space.service.js';
 import { FinanceSpace } from './type/finance-space.type.js';
 import { UseGuards } from '@nestjs/common';
@@ -28,4 +27,8 @@ export class FinanceSpaceResolver {
       input.name,
     );
   }
+
+
+  
+
 }
