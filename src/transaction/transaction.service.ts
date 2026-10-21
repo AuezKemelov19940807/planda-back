@@ -139,5 +139,32 @@ export class TransactionService {
     });
   }
 
-  async delete() {}
+  async delete(userId: string, id: string) {
+    const transaction = await prisma.transaction.findFirst({
+      where: {
+        id,
+        financeSpace: {
+          finance: {
+            userId,
+          },
+        },
+      },
+    });
+
+    if (!transaction) {
+      throw new GraphQLError('Transaction Not Found', {
+        extensions: {
+          code: 'NOT_FOUND',
+        },
+      });
+    }
+
+    await prisma.transaction.delete({
+      where: {
+        id,
+      },
+    });
+
+    return true;
+  }
 }

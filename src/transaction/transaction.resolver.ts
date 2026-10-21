@@ -29,7 +29,6 @@ export class TransactionResolver {
     return this.service.create(context.req.user!.sub, input);
   }
 
-  
   @Mutation(() => Transaction)
   updateTransaction(
     @Context() context: GraphQLContext,
@@ -39,4 +38,11 @@ export class TransactionResolver {
     return this.service.update(context.req.user!.sub, id, input);
   }
 
+  @Mutation(() => Boolean)
+  deleteTransaction(
+    @Context() context: GraphQLContext,
+    @Args('id') id: string,
+  ) {
+    return this.service.delete(context.req.user!.sub, id);
+  }
 }
