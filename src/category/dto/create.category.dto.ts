@@ -17,10 +17,6 @@ export class CategoryCreateDto {
   @Matches(/\S/, { message: 'Name must not be blank' })
   name!: string;
 
-  @Field(() => ID)
-  @IsUUID()
-  financeSpaceId!: string;
-
   @Field(() => TransactionType)
   @IsEnum(TransactionType)
   type!: TransactionType;
