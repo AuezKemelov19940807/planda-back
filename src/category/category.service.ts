@@ -3,6 +3,7 @@ import { prisma } from '../lib/prisma.js';
 import { GraphQLError } from 'graphql';
 import { CategoryCreateDto } from './dto/create.category.dto.js';
 import { Prisma } from '../generated/prisma/client.js';
+import { CategoryUpdateDto } from './dto/update.category.dto.js';
 @Injectable()
 export class CategoryService {
   async get(userId: string, financeSpaceId: string) {
@@ -83,7 +84,61 @@ export class CategoryService {
     }
   }
 
-  async update() {}
+  async update(
+    userId: string,
+    financeSpaceId: string,
+    categoryId: string,
+    input: CategoryUpdateDto,
+  ) {
+    const financeSpace = await prisma.financeSpace.findFirst({
+      where: {
+        id: financeSpaceId,
+        finance: {
+          userId,
+        },
+      },
+    });
+
+    if (!financeSpace) {
+      throw new GraphQLError('Finance space not found', {
+        extensions: {
+          code: 'NOT_FOUND',
+        },
+      });
+    }
+
+    try {
+      return await prisma.category.update({
+        where: {
+          id: categoryId,
+          financeSpaceId: financeSpace.id,
+        },
+        data: {
+          name: input.name.trim(),
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new GraphQLError('Category not found', {
+            extensions: {
+              code: 'NOT_FOUND',
+            },
+          });
+        }
+
+        if (error.code === 'P2002') {
+          throw new GraphQLError('Category already exists', {
+            extensions: {
+              code: 'CONFLICT',
+            },
+          });
+        }
+      }
+
+      throw error;
+    }
+  }
 
   async remove() {}
 }

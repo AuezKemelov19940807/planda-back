@@ -3,14 +3,18 @@ import {
   IsString,
   IsNotEmpty,
   MaxLength,
-  IsEnum,
-  IsUUID,
   Matches,
   IsOptional,
+  IsUUID,
 } from 'class-validator';
-import { TransactionType } from '../../generated/prisma/enums.js';
+
 @InputType()
 export class CategoryUpdateDto {
+  @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsUUID()
+  id?: string;
+
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
