@@ -140,5 +140,54 @@ export class CategoryService {
     }
   }
 
-  async remove() {}
+  async remove(userId: string, financeSpaceId: string, categoryId: string) {
+    const financeSpace = await prisma.financeSpace.findFirst({
+      where: {
+        id: financeSpaceId,
+        finance: {
+          userId,
+        },
+      },
+    });
+
+    if (!financeSpace) {
+      throw new GraphQLError('Finance space not found', {
+        extensions: {
+          code: 'NOT_FOUND',
+        },
+      });
+    }
+
+    try {
+      await prisma.category.delete({
+        where: {
+          id: categoryId,
+          financeSpaceId: financeSpace.id,
+        },
+      });
+
+      return true;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new GraphQLError('Category not found', {
+            extensions: {
+              code: 'NOT_FOUND',
+            },
+          });
+        }
+
+        if (error.code === 'P2003') {
+          throw new GraphQLError(
+            'Cannot delete category because it is used by transactions',
+            {
+              extensions: {
+                code: 'BAD_USER_INPUT',
+              },
+            },
+          );
+        }
+      }
+    }
+  }
 }

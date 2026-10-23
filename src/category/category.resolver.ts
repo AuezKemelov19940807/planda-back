@@ -50,4 +50,20 @@ export class CategoryResolver {
       input,
     );
   }
+
+  @Mutation(() => Boolean)
+  removeCategory(
+    @Context() context: GraphQLContext,
+    @Args('financeSpaceId', { type: () => ID })
+    financeSpaceId: string,
+
+    @Args('categoryId', { type: () => ID })
+    categoryId: string,
+  ) {
+    return this.service.remove(
+      context.req.user!.sub,
+      financeSpaceId,
+      categoryId,
+    );
+  }
 }
