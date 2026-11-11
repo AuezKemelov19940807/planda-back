@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { prisma } from '../lib/prisma.js';
 import { GraphQLError } from 'graphql';
-import { throwError } from 'rxjs';
-
+import slugify from 'slugify';
+import { Prisma } from '../generated/prisma/client.js';
 @Injectable()
 export class FinanceSpaceService {
   async get(userId: string) {
@@ -45,20 +45,48 @@ export class FinanceSpaceService {
       });
     }
 
+    const trimmedName = name.trim();
+
+    if (!trimmedName) {
+      throw new GraphQLError('Name is required', {
+        extensions: { code: 'BAD_USER_INPUT' },
+      });
+    }
+
+    const slug = slugify(trimmedName, {
+      lower: true,
+      strict: true,
+      locale: 'ru',
+    });
+
+    if (!slug) {
+      throw new GraphQLError('Invalid finance space name', {
+        extensions: {
+          code: 'BAD_USER_INPUT',
+        },
+      });
+    }
+
     try {
       return await prisma.financeSpace.create({
         data: {
           financeId: finance.id,
           name: name.trim(),
+          slug,
           isDefault: false,
         },
       });
     } catch (error) {
-      throw new GraphQLError('Finance space already exists', {
-        extensions: {
-          code: 'CONFLICT',
-        },
-      });
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new GraphQLError('Finance space already exists', {
+          extensions: { code: 'CONFLICT' },
+        });
+      }
+
+      throw error;
     }
   }
 
@@ -98,6 +126,12 @@ export class FinanceSpaceService {
       });
     }
 
+    if (trimmedName.length > 50) {
+      throw new GraphQLError('Name must not exceed 50 characters', {
+        extensions: { code: 'BAD_USER_INPUT' },
+      });
+    }
+
     try {
       return await prisma.financeSpace.update({
         where: {
@@ -116,6 +150,7 @@ export class FinanceSpaceService {
           },
         });
       }
+      throw error;
     }
   }
 
@@ -138,16 +173,14 @@ export class FinanceSpaceService {
     }
 
     if (financeSpace.isDefault) {
-      throw new GraphQLError('Cannot rename default finance space', {
-        extensions: {
-          code: 'BAD_USER_INPUT',
-        },
+      throw new GraphQLError('Cannot delete default finance space', {
+        extensions: { code: 'BAD_USER_INPUT' },
       });
     }
 
     const transactionCount = await prisma.transaction.count({
       where: {
-        financeSpaceId: id,
+        financeSpaceId: financeSpace.id,
       },
     });
 

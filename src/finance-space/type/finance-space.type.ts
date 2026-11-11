@@ -9,6 +9,9 @@ export class FinanceSpace {
   name: string;
 
   @Field()
+  slug: string;
+
+  @Field()
   isDefault: boolean;
 
   @Field()

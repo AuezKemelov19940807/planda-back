@@ -28,6 +28,7 @@ export type FinanceSpaceMinAggregateOutputType = {
   id: string | null
   financeId: string | null
   name: string | null
+  slug: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isDefault: boolean | null
@@ -37,6 +38,7 @@ export type FinanceSpaceMaxAggregateOutputType = {
   id: string | null
   financeId: string | null
   name: string | null
+  slug: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isDefault: boolean | null
@@ -46,6 +48,7 @@ export type FinanceSpaceCountAggregateOutputType = {
   id: number
   financeId: number
   name: number
+  slug: number
   createdAt: number
   updatedAt: number
   isDefault: number
@@ -57,6 +60,7 @@ export type FinanceSpaceMinAggregateInputType = {
   id?: true
   financeId?: true
   name?: true
+  slug?: true
   createdAt?: true
   updatedAt?: true
   isDefault?: true
@@ -66,6 +70,7 @@ export type FinanceSpaceMaxAggregateInputType = {
   id?: true
   financeId?: true
   name?: true
+  slug?: true
   createdAt?: true
   updatedAt?: true
   isDefault?: true
@@ -75,6 +80,7 @@ export type FinanceSpaceCountAggregateInputType = {
   id?: true
   financeId?: true
   name?: true
+  slug?: true
   createdAt?: true
   updatedAt?: true
   isDefault?: true
@@ -157,6 +163,7 @@ export type FinanceSpaceGroupByOutputType = {
   id: string
   financeId: string
   name: string
+  slug: string
   createdAt: Date
   updatedAt: Date
   isDefault: boolean
@@ -187,6 +194,7 @@ export type FinanceSpaceWhereInput = {
   id?: Prisma.StringFilter<"FinanceSpace"> | string
   financeId?: Prisma.StringFilter<"FinanceSpace"> | string
   name?: Prisma.StringFilter<"FinanceSpace"> | string
+  slug?: Prisma.StringFilter<"FinanceSpace"> | string
   createdAt?: Prisma.DateTimeFilter<"FinanceSpace"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceSpace"> | Date | string
   isDefault?: Prisma.BoolFilter<"FinanceSpace"> | boolean
@@ -199,6 +207,7 @@ export type FinanceSpaceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   financeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -209,24 +218,26 @@ export type FinanceSpaceOrderByWithRelationInput = {
 
 export type FinanceSpaceWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  financeId_name?: Prisma.FinanceSpaceFinanceIdNameCompoundUniqueInput
+  financeId_slug?: Prisma.FinanceSpaceFinanceIdSlugCompoundUniqueInput
   AND?: Prisma.FinanceSpaceWhereInput | Prisma.FinanceSpaceWhereInput[]
   OR?: Prisma.FinanceSpaceWhereInput[]
   NOT?: Prisma.FinanceSpaceWhereInput | Prisma.FinanceSpaceWhereInput[]
   financeId?: Prisma.StringFilter<"FinanceSpace"> | string
   name?: Prisma.StringFilter<"FinanceSpace"> | string
+  slug?: Prisma.StringFilter<"FinanceSpace"> | string
   createdAt?: Prisma.DateTimeFilter<"FinanceSpace"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceSpace"> | Date | string
   isDefault?: Prisma.BoolFilter<"FinanceSpace"> | boolean
   finance?: Prisma.XOR<Prisma.FinanceScalarRelationFilter, Prisma.FinanceWhereInput>
   categories?: Prisma.CategoryListRelationFilter
   transactions?: Prisma.TransactionListRelationFilter
-}, "id" | "financeId_name">
+}, "id" | "financeId_slug">
 
 export type FinanceSpaceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   financeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -242,6 +253,7 @@ export type FinanceSpaceScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"FinanceSpace"> | string
   financeId?: Prisma.StringWithAggregatesFilter<"FinanceSpace"> | string
   name?: Prisma.StringWithAggregatesFilter<"FinanceSpace"> | string
+  slug?: Prisma.StringWithAggregatesFilter<"FinanceSpace"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FinanceSpace"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FinanceSpace"> | Date | string
   isDefault?: Prisma.BoolWithAggregatesFilter<"FinanceSpace"> | boolean
@@ -250,6 +262,7 @@ export type FinanceSpaceScalarWhereWithAggregatesInput = {
 export type FinanceSpaceCreateInput = {
   id?: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -262,6 +275,7 @@ export type FinanceSpaceUncheckedCreateInput = {
   id?: string
   financeId: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -272,6 +286,7 @@ export type FinanceSpaceUncheckedCreateInput = {
 export type FinanceSpaceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -284,6 +299,7 @@ export type FinanceSpaceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   financeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -295,6 +311,7 @@ export type FinanceSpaceCreateManyInput = {
   id?: string
   financeId: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -303,6 +320,7 @@ export type FinanceSpaceCreateManyInput = {
 export type FinanceSpaceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -312,6 +330,7 @@ export type FinanceSpaceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   financeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -322,15 +341,16 @@ export type FinanceSpaceScalarRelationFilter = {
   isNot?: Prisma.FinanceSpaceWhereInput
 }
 
-export type FinanceSpaceFinanceIdNameCompoundUniqueInput = {
+export type FinanceSpaceFinanceIdSlugCompoundUniqueInput = {
   financeId: string
-  name: string
+  slug: string
 }
 
 export type FinanceSpaceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   financeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -340,6 +360,7 @@ export type FinanceSpaceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   financeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -349,6 +370,7 @@ export type FinanceSpaceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   financeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -441,6 +463,7 @@ export type FinanceSpaceUpdateOneRequiredWithoutTransactionsNestedInput = {
 export type FinanceSpaceCreateWithoutCategoriesInput = {
   id?: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -452,6 +475,7 @@ export type FinanceSpaceUncheckedCreateWithoutCategoriesInput = {
   id?: string
   financeId: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -477,6 +501,7 @@ export type FinanceSpaceUpdateToOneWithWhereWithoutCategoriesInput = {
 export type FinanceSpaceUpdateWithoutCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -488,6 +513,7 @@ export type FinanceSpaceUncheckedUpdateWithoutCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   financeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -497,6 +523,7 @@ export type FinanceSpaceUncheckedUpdateWithoutCategoriesInput = {
 export type FinanceSpaceCreateWithoutFinanceInput = {
   id?: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -507,6 +534,7 @@ export type FinanceSpaceCreateWithoutFinanceInput = {
 export type FinanceSpaceUncheckedCreateWithoutFinanceInput = {
   id?: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -547,6 +575,7 @@ export type FinanceSpaceScalarWhereInput = {
   id?: Prisma.StringFilter<"FinanceSpace"> | string
   financeId?: Prisma.StringFilter<"FinanceSpace"> | string
   name?: Prisma.StringFilter<"FinanceSpace"> | string
+  slug?: Prisma.StringFilter<"FinanceSpace"> | string
   createdAt?: Prisma.DateTimeFilter<"FinanceSpace"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceSpace"> | Date | string
   isDefault?: Prisma.BoolFilter<"FinanceSpace"> | boolean
@@ -555,6 +584,7 @@ export type FinanceSpaceScalarWhereInput = {
 export type FinanceSpaceCreateWithoutTransactionsInput = {
   id?: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -566,6 +596,7 @@ export type FinanceSpaceUncheckedCreateWithoutTransactionsInput = {
   id?: string
   financeId: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -591,6 +622,7 @@ export type FinanceSpaceUpdateToOneWithWhereWithoutTransactionsInput = {
 export type FinanceSpaceUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -602,6 +634,7 @@ export type FinanceSpaceUncheckedUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   financeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -611,6 +644,7 @@ export type FinanceSpaceUncheckedUpdateWithoutTransactionsInput = {
 export type FinanceSpaceCreateManyFinanceInput = {
   id?: string
   name: string
+  slug: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isDefault?: boolean
@@ -619,6 +653,7 @@ export type FinanceSpaceCreateManyFinanceInput = {
 export type FinanceSpaceUpdateWithoutFinanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -629,6 +664,7 @@ export type FinanceSpaceUpdateWithoutFinanceInput = {
 export type FinanceSpaceUncheckedUpdateWithoutFinanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -639,6 +675,7 @@ export type FinanceSpaceUncheckedUpdateWithoutFinanceInput = {
 export type FinanceSpaceUncheckedUpdateManyWithoutFinanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -688,6 +725,7 @@ export type FinanceSpaceSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id?: boolean
   financeId?: boolean
   name?: boolean
+  slug?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   isDefault?: boolean
@@ -701,6 +739,7 @@ export type FinanceSpaceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   financeId?: boolean
   name?: boolean
+  slug?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   isDefault?: boolean
@@ -711,6 +750,7 @@ export type FinanceSpaceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   financeId?: boolean
   name?: boolean
+  slug?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   isDefault?: boolean
@@ -721,12 +761,13 @@ export type FinanceSpaceSelectScalar = {
   id?: boolean
   financeId?: boolean
   name?: boolean
+  slug?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   isDefault?: boolean
 }
 
-export type FinanceSpaceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "financeId" | "name" | "createdAt" | "updatedAt" | "isDefault", ExtArgs["result"]["financeSpace"]>
+export type FinanceSpaceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "financeId" | "name" | "slug" | "createdAt" | "updatedAt" | "isDefault", ExtArgs["result"]["financeSpace"]>
 export type FinanceSpaceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   finance?: boolean | Prisma.FinanceDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.FinanceSpace$categoriesArgs<ExtArgs>
@@ -751,6 +792,7 @@ export type $FinanceSpacePayload<ExtArgs extends runtime.Types.Extensions.Intern
     id: string
     financeId: string
     name: string
+    slug: string
     createdAt: Date
     updatedAt: Date
     isDefault: boolean
@@ -1183,6 +1225,7 @@ export interface FinanceSpaceFieldRefs {
   readonly id: Prisma.FieldRef<"FinanceSpace", 'String'>
   readonly financeId: Prisma.FieldRef<"FinanceSpace", 'String'>
   readonly name: Prisma.FieldRef<"FinanceSpace", 'String'>
+  readonly slug: Prisma.FieldRef<"FinanceSpace", 'String'>
   readonly createdAt: Prisma.FieldRef<"FinanceSpace", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"FinanceSpace", 'DateTime'>
   readonly isDefault: Prisma.FieldRef<"FinanceSpace", 'Boolean'>

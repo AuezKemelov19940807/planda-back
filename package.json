@@ -47,7 +47,8 @@
     "pg": "^8.23.0",
     "reflect-metadata": "^0.2.2",
     "resend": "^6.27.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "slugify": "^1.6.9"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.7.10",

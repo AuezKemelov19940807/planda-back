@@ -5,11 +5,12 @@ model FinanceSpace {
   finance      Finance       @relation(fields: [financeId], references: [id], onDelete: Cascade)
   categories   Category[]
   transactions Transaction[]
+  slug         String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isDefault Boolean  @default(false)
 
-  @@unique([financeId, name])
+  @@unique([financeId, slug])
   @@index([financeId])
 }

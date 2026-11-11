@@ -90,6 +90,7 @@ export const FinanceSpaceScalarFieldEnum = {
   id: 'id',
   financeId: 'financeId',
   name: 'name',
+  slug: 'slug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isDefault: 'isDefault'

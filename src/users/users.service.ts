@@ -21,6 +21,8 @@ export class UsersService {
               spaces: {
                 create: {
                   name: 'Personal',
+                  slug: 'personal',
+
                   isDefault: true,
                 },
               },
@@ -204,6 +206,7 @@ export class UsersService {
             spaces: {
               create: {
                 name: 'Personal',
+                slug: 'personal',
                 isDefault: true,
               },
             },
